@@ -40,26 +40,10 @@ class Airplane {
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-// function Person(paramName, paramAge) {
-//   this.name = paramName;
-//   this.age = paramAge;  
-//   this.stomach = [];
-//   }
-//     Person.prototype.eat = function (someFood){
-//           if(this.stomach.length < 10){
-//             this.stomach.push(someFood)            
-//           }
-//         }
-//     Person.prototype.poop = function(){
-//           this.stomach = []          
-//         }
-//     Person.prototype.toString = function(){
-//           return `${this.name}, ${this.age}`
-//         }
 class Person {
-  constructor(name, age){
-  this.name = name;
-  this.age = age;
+  constructor(pName, pAge){
+  this.name = pName;
+  this.age = pAge;
   this.stomach = []
   }
   eat(someFood){
@@ -91,23 +75,39 @@ console.log(mary);
     - A car which runs out of `fuel` while driving can't drive any more distance:
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
-// function Car(paramModel, paramMilesPerGallon) {
-//   this.model = paramModel;
-//   this.milesPerGallon = paramMilesPerGallon;
-//   this.tank = 0;
-//   this.odometer = 0;
-// }
-// Car.prototype.fill = function (gallons){
-//   this.tank += gallons;
-//   }
-
-
-
 
 class Car {
+  constructor(model,milesPerGallon){
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
+    this.tank = 0;  
+    this.odometer = 0; 
+  }
+  fill(gallons){
+    this.tank += gallons;
+  }
+    drive(distance){
+      this.odometer = distance;
+      this.tank = this.tank - Math.floor(distance / this.milesPerGallon);
+      if(this.tank <= 0){
+        console.log(`I ran out of fuel at ${this.odometer} miles!`)
+        this.tank =0;
+        return `I ran out of fuel at ${this.odometer} miles!`
+      }
+      }
+    } 
 
-}
 
+
+
+  
+      // if(this.tank >= (distance/this.milesPerGallon)){
+      //     this.odometer = distance + this.odometer;
+      //     this.tank -= distance/this.milesPerGallon;
+      // }else{
+      //   this.odometer += this.tank * this.milesPerGallon;
+      //   this.tank = 0;
+      //   return `I ran out of fuel at ${this.odometer}.`;
 /*
   TASK 3
     - Write a Lambdasian class.
@@ -121,8 +121,18 @@ class Car {
         + {name} and {location} of course come from the instance's own properties.
 */
 class Lambdasian {
-
+  constructor(student){
+    this.name = student.name;
+    this.age = student.age;
+    this.location = student.location;
+  }
+  speak(){
+    return `Hello my name is ${this.name}, I am from ${this.location}.`;
+  }
 }
+let petar = new Lambdasian({name:"Petar", age:21, location: "NY City"});
+petar.speak();
+console.log(petar);
 
 /*
   TASK 4
@@ -138,10 +148,22 @@ class Lambdasian {
         + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
         + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
 */
-class Instructor {
-
+class Instructor extends Lambdasian {
+  constructor(inObj){
+    super(inObj)
+    this.specialty = inObj.specialty;
+    this.favLanguage = inObj.favLanguage;
+    this.catchPhrase = inObj.catchPhrase;
+  }
+  demo(subj){
+    return `Today we are learning about ${subj}`
+  }
+  grade(student, subject){
+    return `${student.name} receives a perfect score on ${subject}`
+  }
 }
-
+let mark = new Instructor({name: "Mark", age: 40, location: "Los Angeles", favLanguage: "JavaScript", catchPhrase: "Howdy"});
+console.log(mark)
 /*
   TASK 5
     - Write a Student class extending Lambdasian.
@@ -157,9 +179,25 @@ class Instructor {
         + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
-class Student {
 
+class Student extends Lambdasian {
+  constructor(sObj){
+    super(sObj)
+    this.previousBackground = sObj.previousBackground;
+    this.className = sObj.className;
+    this.favSubjects = sObj.favSubjects;
+  }
+  listsSubjects(sObj){
+    return `Loving ${this.favSubjects}!`
+  }
+  PRAssignments(){
+
+  }
+  sprintChallenge(student, subject){
+    return`${student.name} has begun sprint challenge on ${subject}`;
+  }
 }
+let fav = new Student({favSubjects:["JS", "Node", "Redux"]})
 
 /*
   TASK 6
