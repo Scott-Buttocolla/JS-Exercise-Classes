@@ -58,8 +58,6 @@ class Person {
     return `${this.name}, ${this.age}`
   }
 }
-let mary = new Person("Mary",50);
-console.log(mary);
 
 
 /*
@@ -96,18 +94,6 @@ class Car {
       }
       }
     } 
-
-
-
-
-  
-      // if(this.tank >= (distance/this.milesPerGallon)){
-      //     this.odometer = distance + this.odometer;
-      //     this.tank -= distance/this.milesPerGallon;
-      // }else{
-      //   this.odometer += this.tank * this.milesPerGallon;
-      //   this.tank = 0;
-      //   return `I ran out of fuel at ${this.odometer}.`;
 /*
   TASK 3
     - Write a Lambdasian class.
@@ -130,9 +116,7 @@ class Lambdasian {
     return `Hello my name is ${this.name}, I am from ${this.location}.`;
   }
 }
-let petar = new Lambdasian({name:"Petar", age:21, location: "NY City"});
-petar.speak();
-console.log(petar);
+
 
 /*
   TASK 4
@@ -162,8 +146,7 @@ class Instructor extends Lambdasian {
     return `${student.name} receives a perfect score on ${subject}`
   }
 }
-let mark = new Instructor({name: "Mark", age: 40, location: "Los Angeles", favLanguage: "JavaScript", catchPhrase: "Howdy"});
-console.log(mark)
+
 /*
   TASK 5
     - Write a Student class extending Lambdasian.
@@ -187,17 +170,23 @@ class Student extends Lambdasian {
     this.className = sObj.className;
     this.favSubjects = sObj.favSubjects;
   }
-  listsSubjects(sObj){
+  listSubjects(){
     return `Loving ${this.favSubjects}!`
   }
-  PRAssignments(){
+  PRAssignment(subject){
+    return `${this.name} has submitted a PR for ${subject}`;
 
   }
-  sprintChallenge(student, subject){
-    return`${student.name} has begun sprint challenge on ${subject}`;
+  sprintChallenge(subject){
+    return`${this.name} has begun sprint challenge on ${subject}`;
   }
+
+  // debugsCode(student, subject){
+  //   return `${this.name} debugs ${student.name}'s code on ${subject}`;
 }
-let fav = new Student({favSubjects:["JS", "Node", "Redux"]})
+({
+  favSubjects:["JS", "Node", "Redux"],
+})
 
 /*
   TASK 6
@@ -212,8 +201,19 @@ let fav = new Student({favSubjects:["JS", "Node", "Redux"]})
         + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
         + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
 */
-class ProjectManager {
-
+class ProjectManager extends Instructor{
+  constructor(proObj){
+  super(proObj)
+   this.gradClassName = proObj.gradClassName;
+   this.favInstructor = proObj.favInstructor;
+  }
+  standUp(channel){
+    //console.log(`${name} has begun sprint challenge on ${subject}`);
+    return `${this.name} announces tp ${channel}, @channel standy times!`;
+  }
+  debugsCode(student, subject){
+    return `${this.name} debugs ${student.name}'s code on ${subject}`;
+  }
 }
 
 /*
