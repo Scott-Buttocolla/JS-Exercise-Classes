@@ -85,15 +85,16 @@ class Car {
     this.tank += gallons;
   }
     drive(distance){
-      this.odometer = distance;
-      this.tank = this.tank - (distance / this.milesPerGallon);
-      if(this.tank <= 0){
-        console.log(`I ran out of fuel at ${this.odometer} miles!`)
-        this.tank =0;
-        return `I ran out of fuel at ${this.odometer} miles!`
+      this.odometer += distance;
+      let drivingCap = this.tank * this.milesPerGallon;
+      this.tank = this.tank - Math.floor(distance / this.milesPerGallon);      
+      if(drivingCap < distance){
+        this.odometer = drivingCap
+        return `I ran out of fuel at ${this.odometer} miles!`;        
       }
       }
-    } 
+      }
+    
 /*
   TASK 3
     - Write a Lambdasian class.
@@ -175,18 +176,12 @@ class Student extends Lambdasian {
   }
   PRAssignment(subject){
     return `${this.name} has submitted a PR for ${subject}`;
-
   }
   sprintChallenge(subject){
     return`${this.name} has begun sprint challenge on ${subject}`;
   }
-
-  // debugsCode(student, subject){
-  //   return `${this.name} debugs ${student.name}'s code on ${subject}`;
 }
-({
-  favSubjects:["JS", "Node", "Redux"],
-})
+
 
 /*
   TASK 6
